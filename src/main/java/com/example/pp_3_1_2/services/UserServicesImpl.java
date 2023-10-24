@@ -19,7 +19,7 @@ public class UserServicesImpl implements UserServices {
         return userDao.getAllUsers();
     }
 
-    /*@Override
+    @Override
     public User getUser(int id) {
         return userDao.getUser(id);
     }
@@ -32,5 +32,5 @@ public class UserServicesImpl implements UserServices {
     @Override
     public void deleteUser(int id) {
         userDao.deleteUser(id);
-    }*/
+    }
 }
