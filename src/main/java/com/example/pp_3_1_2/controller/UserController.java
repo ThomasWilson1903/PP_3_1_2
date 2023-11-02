@@ -3,11 +3,11 @@ package com.example.pp_3_1_2.controller;
 import com.example.pp_3_1_2.model.User;
 import com.example.pp_3_1_2.services.UserServices;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
-@RestController
+@Controller
 @RequestMapping("/user")
 public class UserController {
 
@@ -16,8 +16,9 @@ public class UserController {
 
 
     @GetMapping()
-    public List<User> show() {
-        return userServices.getAllUsers();
+    public String show(Model model) {
+        model.addAttribute("user", userServices.getAllUsers());
+        return "users";
     }
 
     @GetMapping("/{id}")
@@ -25,18 +26,21 @@ public class UserController {
         return userServices.getUser(id);
     }
 
-    @PostMapping("/save")
-    public void saveUser(@RequestParam(name = "name", required = true) String name, @RequestParam(name = "surname", required = true) String surName, @RequestParam(name = "email", required = true) String email) {
-        User user = new User();
-        user.setEmail(email);
-        user.setFirstName(name);
-        user.setLastName(surName);
+    @GetMapping ("/new")
+    public String newUser(Model model) {
+        model.addAttribute("newUser", new User());
+        return "newUser";
+    }
+
+    @GetMapping("/save")
+    public String saveUser(@ModelAttribute("user") User user) {
         userServices.saveUser(user);
+        return "redirect:/user";
     }
 
-    @PostMapping("/del/{id}")
-    public void del(@PathVariable("id") int id) {
+    @GetMapping("/del")
+    public String del(@RequestParam("id") int id) {
         userServices.deleteUser(id);
+        return "redirect:/user";
     }
-
 }
