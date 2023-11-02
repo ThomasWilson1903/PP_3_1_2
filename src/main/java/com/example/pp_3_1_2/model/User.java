@@ -1,6 +1,10 @@
 package com.example.pp_3_1_2.model;
 
+
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
 
 @Entity
 @Table(name = "users")
@@ -8,16 +12,22 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false, length = 255)
+    @Column(name = "id", length = 255, nullable = false)
     private int id;
 
-    @Column(name = "name", nullable = false, length = 255)
+    @Column(name = "name", length = 255)
+    @Pattern(regexp = "^[a-zA-Z]+$", message = "error firstName")
+    @NotNull
     private String firstName;
 
-    @Column(name = "last_name", nullable = false, length = 255)
+    @Column(name = "last_name", length = 255)
+    @Pattern(regexp = "^[a-zA-Z]+$", message = "error lastName")
+    @NotNull
     private String lastName;
 
-    @Column(name = "email", nullable = false, length = 255)
+    @Column(name = "email", length = 255)
+    @NotNull
+    @Email(message = "error e-mail")
     private String email;
 
     @Override
@@ -29,7 +39,6 @@ public class User {
                 ", email='" + email + '\'' +
                 '}';
     }
-
     public User() {
     }
 
