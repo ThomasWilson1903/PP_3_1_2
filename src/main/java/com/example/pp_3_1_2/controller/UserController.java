@@ -2,10 +2,14 @@ package com.example.pp_3_1_2.controller;
 
 import com.example.pp_3_1_2.model.User;
 import com.example.pp_3_1_2.services.UserServices;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+
+import javax.script.Bindings;
 
 @Controller
 @RequestMapping("/user")
@@ -26,14 +30,19 @@ public class UserController {
         return userServices.getUser(id);
     }
 
-    @GetMapping ("/new")
+    @GetMapping("/new")
     public String newUser(Model model) {
         model.addAttribute("newUser", new User());
         return "newUser";
     }
 
-    @GetMapping("/save")
-    public String saveUser(@ModelAttribute("user") User user) {
+    @GetMapping ("/save")
+    public String saveUser(@Valid User user, BindingResult bindingResult, Model model) {
+        if(bindingResult.hasErrors()){
+            model.addAttribute("newUser", new User());
+            model.addAttribute("errors", bindingResult.getFieldErrors());
+            return "newUser";
+        }
         userServices.saveUser(user);
         return "redirect:/user";
     }

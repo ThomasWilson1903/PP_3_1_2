@@ -4,22 +4,41 @@
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
+<style>
+    .error {
+        color: red;
+    }
+</style>
 <body>
-<br>
+<br/>
 <form th:method="get" th:action="@{/user/save}" th:object="${newUser}">
+    <div>
+        <input type="hidden" th:field="*{id}"/>
 
-  <input type="hidden" th:field="*{id}"/>
+        <label for="firstName">Name: </label>
+        <input type="text" th:field="*{firstName}" id="firstName"/>
+        <span th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"></span>
+        <br><br>
+    </div>
 
-  <label for="name">Name: </label>
-  <input type="text" th:field="*{firstName}" id="name"/>
-  <br><br>
-  <label for="surname">Surname: </label>
-  <input type="text" th:field="*{lastName}" id="surname"/>
-  <br><br>
-  <label for="email">Email: </label>
-  <input type="text" th:field="*{email}" id="email"/>
-  <br><br>
-  <input type="submit" value="OK"/>
+    <div>
+        <label for="lastName">Surname: </label>
+        <input type="text" th:field="*{lastName}" id="lastName"/>
+        <span th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"></span>
+        <br><br>
+    </div>
+
+    <div>
+        <label for="email">Email: </label>
+        <input type="text" th:field="*{email}" id="email"/>
+
+        <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
+        <br><br>
+    </div>
+
+    <input type="submit" value="OK"/>
 </form>
+
+
 </body>
 </html>

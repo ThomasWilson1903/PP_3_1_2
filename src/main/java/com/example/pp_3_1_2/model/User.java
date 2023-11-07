@@ -17,16 +17,16 @@ public class User {
 
     @Column(name = "name", length = 255)
     @Pattern(regexp = "^[a-zA-Z]+$", message = "error firstName")
-    @NotNull
+    @NotNull(message = "not NULL")
     private String firstName;
 
     @Column(name = "last_name", length = 255)
     @Pattern(regexp = "^[a-zA-Z]+$", message = "error lastName")
-    @NotNull
+    @NotNull(message = "not NULL")
     private String lastName;
 
     @Column(name = "email", length = 255)
-    @NotNull
+    @NotNull(message = "not NULL")
     @Email(message = "error e-mail")
     private String email;
 
