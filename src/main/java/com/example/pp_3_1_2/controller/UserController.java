@@ -15,9 +15,11 @@ import javax.script.Bindings;
 @RequestMapping("/user")
 public class UserController {
 
-    @Autowired
     UserServices userServices;
-
+    @Autowired
+    public UserController(UserServices userServices) {
+        this.userServices = userServices;
+    }
 
     @GetMapping()
     public String show(Model model) {
