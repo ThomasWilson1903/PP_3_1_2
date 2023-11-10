@@ -22,6 +22,14 @@
             <td th:text="${user.email}"></td>
             <td th:text="${user.firstName}"></td>
             <td th:text="${user.lastName}"></td>
+
+            <td>
+                <form th:action="@{/user/edit}" method="get">
+                    <input type="hidden" name="userId" th:value="${user.id}"/>
+                    <button type="submit">Edit</button>
+                </form>
+            </td>
+
             <td>
                 <form th:action="@{/user/del}" method="get">
                     <input type="hidden" name="id" th:value="${user.id}"/>

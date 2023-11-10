@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Repository
+@Transactional
 public class UserDaoImpl implements UserDao {
 
     private EntityManager entityManagers;
@@ -31,14 +32,12 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    @Transactional
     public void saveUser(User user) {
         Session session = entityManagers.unwrap(Session.class);
         session.merge(user);
         session.flush();
     }
 
-    @Transactional
     @Override
     public void deleteUser(int id) {
         Session session = entityManagers.unwrap(Session.class);

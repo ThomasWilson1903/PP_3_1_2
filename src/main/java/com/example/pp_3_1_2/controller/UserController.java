@@ -9,13 +9,13 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import javax.script.Bindings;
 
 @Controller
 @RequestMapping("/user")
 public class UserController {
 
     UserServices userServices;
+
     @Autowired
     public UserController(UserServices userServices) {
         this.userServices = userServices;
@@ -38,15 +38,21 @@ public class UserController {
         return "newUser";
     }
 
-    @GetMapping ("/save")
+    @GetMapping("/save")
     public String saveUser(@Valid User user, BindingResult bindingResult, Model model) {
-        if(bindingResult.hasErrors()){
-            model.addAttribute("newUser", new User());
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("newUser", user);
             model.addAttribute("errors", bindingResult.getFieldErrors());
             return "newUser";
         }
         userServices.saveUser(user);
         return "redirect:/user";
+    }
+
+    @GetMapping("/edit")
+    public String editUser(@ModelAttribute("userId") int userId, Model model) {
+        model.addAttribute("newUser", userServices.getUser(userId));
+        return "newUser";
     }
 
     @GetMapping("/del")

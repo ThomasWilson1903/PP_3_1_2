@@ -12,37 +12,48 @@
     }
 </style>
 <body>
-<br/>
-<form th:method="get" th:action="@{/user/save}" th:object="${newUser}">
-    <div>
-        <input type="hidden" th:field="*{id}"/>
+<table>
+    <tbody>
+    <tr>
+        <td>
+            <br/>
+            <form th:method="get" th:action="@{/user/save}" th:object="${newUser}">
+                <div>
+                    <input type="hidden" th:field="*{id}"/>
 
-        <label for="firstName">Name: </label>
-        <input type="text" th:field="*{firstName}" id="firstName"/>
-        <br><br>
-    </div>
+                    <label for="firstName">Name: </label>
+                    <input type="text" th:field="*{firstName}" id="firstName"/>
+                    <br><br>
+                </div>
 
-    <div>
-        <label for="lastName">Surname: </label>
-        <input type="text" th:field="*{lastName}" id="lastName"/>
-        <span th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"></span>
-        <br><br>
-    </div>
+                <div>
+                    <label for="lastName">Surname: </label>
+                    <input type="text" th:field="*{lastName}" id="lastName"/>
+                    <br><br>
+                </div>
 
-    <div>
-        <label for="email">Email: </label>
-        <input type="text" th:field="*{email}" id="email"/>
+                <div>
+                    <label for="email">Email: </label>
+                    <input type="text" th:field="*{email}" id="email"/>
+                    <br><br>
+                </div>
 
-        <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
-        <br><br>
-    </div>
+                <input type="submit" value="OK"/>
+            </form>
+        </td>
 
-    <input type="submit" value="OK"/>
-</form>
+        <td>
 
-<th:block th:each="msg : ${errors}">
-    <p th:text="${msg.defaultMessage}"></p>
-</th:block>
+            <th:block th:each="msg : ${errors}">
+                <p th:text="${msg.defaultMessage + msg.getObjectName()}"></p>
+            </th:block>
+        </td>
+    </tr>
+
+    </tbody>
+</table>
+
+
 
 
 </body>

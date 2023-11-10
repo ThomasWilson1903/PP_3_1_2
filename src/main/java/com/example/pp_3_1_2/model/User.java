@@ -15,19 +15,19 @@ public class User {
     @Column(name = "id", length = 255, nullable = false)
     private int id;
 
-    @Column(name = "name", length = 255)
+    @Column(name = "name", length = 255, nullable = false)
     @Pattern(regexp = "^[a-zA-Z]+$", message = "error firstName")
     @NotNull(message = "not NULL")
     private String firstName;
 
-    @Column(name = "last_name", length = 255)
+    @Column(name = "last_name", length = 255, nullable = false)
     @Pattern(regexp = "^[a-zA-Z]+$", message = "error lastName")
     @NotNull(message = "not NULL")
     private String lastName;
 
-    @Column(name = "email", length = 255)
-    @NotNull(message = "not NULL")
+    @Column(name = "email", length = 255, nullable = false)
     @Email(message = "error e-mail")
+    @NotNull(message = "not NULL")
     private String email;
 
     @Override
